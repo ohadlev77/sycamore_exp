@@ -1,5 +1,5 @@
 """
-Contains utility functions and decorators.
+Utility functions and decorators.
 """
 
 import time

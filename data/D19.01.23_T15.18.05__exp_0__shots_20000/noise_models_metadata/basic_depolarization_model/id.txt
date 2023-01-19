@@ -1,0 +1,4 @@
+NoiseModel:
+  Basis gates: ['cx', 'id', 'rz', 'sx', 'x']
+  Instructions with noise: ['cx', 'sx', 'rz', 'x']
+  All-qubits errors: ['rz', 'sx', 'x', 'cx']

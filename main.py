@@ -8,6 +8,9 @@ if __name__ == "__main__":
         {'num_qubits': 12, 'depth': 10},
         {'num_qubits': 12, 'depth': 12},
         {'num_qubits': 12, 'depth': 14},
+        {'num_qubits': 14, 'depth': 10},
+        {'num_qubits': 14, 'depth': 12},
+        {'num_qubits': 14, 'depth': 14},
         {'num_qubits': 16, 'depth': 10},
         {'num_qubits': 16, 'depth': 12},
         {'num_qubits': 16, 'depth': 14}

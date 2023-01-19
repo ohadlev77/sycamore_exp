@@ -30,10 +30,10 @@ def random_circuit_modified(
     num_qubits, depth, max_operands=3, measure=False, conditional=False, reset=False, seed=None
 ):
     """
-    A modified version of qiski.circuit.random_circuit.
+    A modified version of qiskit.circuit.random_circuit.
     This version generates circuits only with the native gates of IBM's backends,
     that is: 'id', 'x', 'sx', 'rz', 'cx'.
-    From here the original docstrings are presented.
+    From here are the original docstrings of the Qiskit's `random_circuit` function.
 
     Generate random circuit of arbitrary size and form.
 
