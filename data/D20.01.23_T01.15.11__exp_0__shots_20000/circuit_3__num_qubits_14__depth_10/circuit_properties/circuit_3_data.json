@@ -1,0 +1,14 @@
+{
+    "circuit_id": 3,
+    "num_qubits": 14,
+    "depth": 11,
+    "gates_count": {
+        "cx": 48,
+        "rz": 15,
+        "measure": 14,
+        "sx": 12,
+        "id": 9,
+        "x": 8
+    },
+    "qasm_hash_sha256hex": "1cd2e15c3a8899d1ce851458473da80d64466551532f9c450fa20d9c824c569b"
+}
