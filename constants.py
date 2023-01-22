@@ -10,9 +10,6 @@ BACKEND = AerSimulator()
 # Maximun number of operands for each gate in the random circuit generation
 MAX_OPERANDS = 2
 
-# Number of iterations to run each quantum circuit
-SHOTS = 20000
-
 # A path to the directory that experiments data is saved into (From the main directory of the package)
 PATH_TO_DATA = "data/"
 

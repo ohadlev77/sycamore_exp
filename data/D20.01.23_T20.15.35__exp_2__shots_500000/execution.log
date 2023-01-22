@@ -1,0 +1,150 @@
+Runs experiment 2 and saves data to 'data/D20.01.23_T20.15.35__exp_2__shots_500000/':
+
+    Generating and saving noise models' metadata.
+    Metadata processing time = 0.47 seconds.
+
+    Circuit 0:
+        Exporting circuit 0 data into 'data/D20.01.23_T20.15.35__exp_2__shots_500000/circuit_0__num_qubits_12__depth_10/circuit_properties/'.
+        Circuit data exporting time = 1.32 seconds.
+
+        Simulating circuit 0 with noise model 0.
+        Saving data to circuit_0__num_qubits_12__depth_10__noise_model_ideal__nonzero_rate_0.12.json.
+        Circuit simulation execution time = 1.83 seconds.
+
+        Simulating circuit 0 with noise model 1.
+        Saving data to circuit_0__num_qubits_12__depth_10__noise_model_basic_depolarization_model__nonzero_rate_0.81.json.
+        Circuit simulation execution time = 11.47 seconds.
+
+        Simulating circuit 0 with noise model 2.
+        Saving data to circuit_0__num_qubits_12__depth_10__noise_model_fake_kolkata_model__nonzero_rate_0.89.json.
+        Circuit simulation execution time = 10.46 seconds.
+
+    Circuit 1:
+        Exporting circuit 1 data into 'data/D20.01.23_T20.15.35__exp_2__shots_500000/circuit_1__num_qubits_12__depth_12/circuit_properties/'.
+        Circuit data exporting time = 1.97 seconds.
+
+        Simulating circuit 1 with noise model 0.
+        Saving data to circuit_1__num_qubits_12__depth_12__noise_model_ideal__nonzero_rate_0.03.json.
+        Circuit simulation execution time = 1.87 seconds.
+
+        Simulating circuit 1 with noise model 1.
+        Saving data to circuit_1__num_qubits_12__depth_12__noise_model_basic_depolarization_model__nonzero_rate_0.79.json.
+        Circuit simulation execution time = 16.84 seconds.
+
+        Simulating circuit 1 with noise model 2.
+        Saving data to circuit_1__num_qubits_12__depth_12__noise_model_fake_kolkata_model__nonzero_rate_0.73.json.
+        Circuit simulation execution time = 13.59 seconds.
+
+    Circuit 2:
+        Exporting circuit 2 data into 'data/D20.01.23_T20.15.35__exp_2__shots_500000/circuit_2__num_qubits_12__depth_14/circuit_properties/'.
+/home/ohad/env_sycamore_exp_py3.10.9/lib/python3.10/site-packages/qiskit/visualization/circuit/matplotlib.py:186: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.
+  self._figure = plt.figure()
+        Circuit data exporting time = 1.81 seconds.
+
+        Simulating circuit 2 with noise model 0.
+        Saving data to circuit_2__num_qubits_12__depth_14__noise_model_ideal__nonzero_rate_0.25.json.
+        Circuit simulation execution time = 1.59 seconds.
+
+        Simulating circuit 2 with noise model 1.
+        Saving data to circuit_2__num_qubits_12__depth_14__noise_model_basic_depolarization_model__nonzero_rate_1.0.json.
+        Circuit simulation execution time = 16.59 seconds.
+
+        Simulating circuit 2 with noise model 2.
+        Saving data to circuit_2__num_qubits_12__depth_14__noise_model_fake_kolkata_model__nonzero_rate_1.0.json.
+        Circuit simulation execution time = 15.58 seconds.
+
+    Circuit 3:
+        Exporting circuit 3 data into 'data/D20.01.23_T20.15.35__exp_2__shots_500000/circuit_3__num_qubits_14__depth_10/circuit_properties/'.
+        Circuit data exporting time = 1.82 seconds.
+
+        Simulating circuit 3 with noise model 0.
+        Saving data to circuit_3__num_qubits_14__depth_10__noise_model_ideal__nonzero_rate_0.03.json.
+        Circuit simulation execution time = 1.93 seconds.
+
+        Simulating circuit 3 with noise model 1.
+        Saving data to circuit_3__num_qubits_14__depth_10__noise_model_basic_depolarization_model__nonzero_rate_0.64.json.
+        Circuit simulation execution time = 268.64 seconds.
+
+        Simulating circuit 3 with noise model 2.
+        Saving data to circuit_3__num_qubits_14__depth_10__noise_model_fake_kolkata_model__nonzero_rate_0.52.json.
+        Circuit simulation execution time = 172.41 seconds.
+
+    Circuit 4:
+        Exporting circuit 4 data into 'data/D20.01.23_T20.15.35__exp_2__shots_500000/circuit_4__num_qubits_14__depth_12/circuit_properties/'.
+        Circuit data exporting time = 4.94 seconds.
+
+        Simulating circuit 4 with noise model 0.
+        Saving data to circuit_4__num_qubits_14__depth_12__noise_model_ideal__nonzero_rate_0.06.json.
+        Circuit simulation execution time = 2.03 seconds.
+
+        Simulating circuit 4 with noise model 1.
+        Saving data to circuit_4__num_qubits_14__depth_12__noise_model_basic_depolarization_model__nonzero_rate_0.83.json.
+        Circuit simulation execution time = 282.76 seconds.
+
+        Simulating circuit 4 with noise model 2.
+        Saving data to circuit_4__num_qubits_14__depth_12__noise_model_fake_kolkata_model__nonzero_rate_0.67.json.
+        Circuit simulation execution time = 192.23 seconds.
+
+    Circuit 5:
+        Exporting circuit 5 data into 'data/D20.01.23_T20.15.35__exp_2__shots_500000/circuit_5__num_qubits_14__depth_14/circuit_properties/'.
+        Circuit data exporting time = 7.89 seconds.
+
+        Simulating circuit 5 with noise model 0.
+        Saving data to circuit_5__num_qubits_14__depth_14__noise_model_ideal__nonzero_rate_0.5.json.
+        Circuit simulation execution time = 2.15 seconds.
+
+        Simulating circuit 5 with noise model 1.
+        Saving data to circuit_5__num_qubits_14__depth_14__noise_model_basic_depolarization_model__nonzero_rate_0.98.json.
+        Circuit simulation execution time = 290.66 seconds.
+
+        Simulating circuit 5 with noise model 2.
+        Saving data to circuit_5__num_qubits_14__depth_14__noise_model_fake_kolkata_model__nonzero_rate_0.99.json.
+        Circuit simulation execution time = 211.06 seconds.
+
+    Circuit 6:
+        Exporting circuit 6 data into 'data/D20.01.23_T20.15.35__exp_2__shots_500000/circuit_6__num_qubits_16__depth_10/circuit_properties/'.
+        Circuit data exporting time = 2.17 seconds.
+
+        Simulating circuit 6 with noise model 0.
+        Saving data to circuit_6__num_qubits_16__depth_10__noise_model_ideal__nonzero_rate_0.01.json.
+        Circuit simulation execution time = 2.53 seconds.
+
+        Simulating circuit 6 with noise model 1.
+        Saving data to circuit_6__num_qubits_16__depth_10__noise_model_basic_depolarization_model__nonzero_rate_0.26.json.
+        Circuit simulation execution time = 13235.5 seconds.
+
+        Simulating circuit 6 with noise model 2.
+        Saving data to circuit_6__num_qubits_16__depth_10__noise_model_fake_kolkata_model__nonzero_rate_0.2.json.
+        Circuit simulation execution time = 14933.27 seconds.
+
+    Circuit 7:
+        Exporting circuit 7 data into 'data/D20.01.23_T20.15.35__exp_2__shots_500000/circuit_7__num_qubits_16__depth_12/circuit_properties/'.
+        Circuit data exporting time = 2.39 seconds.
+
+        Simulating circuit 7 with noise model 0.
+        Saving data to circuit_7__num_qubits_16__depth_12__noise_model_ideal__nonzero_rate_0.12.json.
+        Circuit simulation execution time = 2.62 seconds.
+
+        Simulating circuit 7 with noise model 1.
+        Saving data to circuit_7__num_qubits_16__depth_12__noise_model_basic_depolarization_model__nonzero_rate_0.53.json.
+        Circuit simulation execution time = 14499.42 seconds.
+
+        Simulating circuit 7 with noise model 2.
+        Saving data to circuit_7__num_qubits_16__depth_12__noise_model_fake_kolkata_model__nonzero_rate_0.53.json.
+        Circuit simulation execution time = 18456.48 seconds.
+
+    Circuit 8:
+        Exporting circuit 8 data into 'data/D20.01.23_T20.15.35__exp_2__shots_500000/circuit_8__num_qubits_16__depth_14/circuit_properties/'.
+        Circuit data exporting time = 2.6 seconds.
+
+        Simulating circuit 8 with noise model 0.
+        Saving data to circuit_8__num_qubits_16__depth_14__noise_model_ideal__nonzero_rate_0.5.json.
+        Circuit simulation execution time = 2.27 seconds.
+
+        Simulating circuit 8 with noise model 1.
+        Saving data to circuit_8__num_qubits_16__depth_14__noise_model_basic_depolarization_model__nonzero_rate_0.8.json.
+        Circuit simulation execution time = 16875.28 seconds.
+
+        Simulating circuit 8 with noise model 2.
+        Saving data to circuit_8__num_qubits_16__depth_14__noise_model_fake_kolkata_model__nonzero_rate_0.78.json.
+        Circuit simulation execution time = 20338.16 seconds.

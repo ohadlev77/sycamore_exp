@@ -14,7 +14,7 @@ from qiskit_aer.noise.noise_model import NoiseModel
 
 from random_circuit import random_circuit_modified
 from util import timer_dec, timestamp
-from constants import BACKEND, MAX_OPERANDS, SHOTS, PATH_TO_DATA, DATA_PRECISION
+from constants import BACKEND, MAX_OPERANDS, PATH_TO_DATA, DATA_PRECISION
 from experiment import Experiment
 
 class RandomSamples:
@@ -26,7 +26,8 @@ class RandomSamples:
     def __init__(
         self,
         circuits: Optional[List[Dict[str, int]]] = None,
-        noise_models: Optional[List[NoiseModel]] = None
+        noise_models: Optional[List[NoiseModel]] = None,
+        default_shots: Optional[int] = 20000
     ) -> None:
         """
         Args:
@@ -47,6 +48,8 @@ class RandomSamples:
         else:
             self.noise_models = noise_models
 
+        self.default_shots = default_shots
+
         # By default, building exp_0 which combines all circuits with all noise models
         self.experiments = []
         self.build_exp()
@@ -64,7 +67,7 @@ class RandomSamples:
         details_map = {
             "Circuits": self.circuits,
             "Noise Models": self.noise_models,
-            "Experiments ({circuit_id: List[noise_model_ids]})": self.experiments
+            "Experiments:": self.experiments
         }
 
         # Iterating over the details and printing it
@@ -135,9 +138,9 @@ class RandomSamples:
                     measure=True
                 )
 
-    def build_exp(self, combinations: Optional[Dict[int, List[int]]] = None) -> None:
+    def build_exp(self, combinations: Optional[Dict[int, List[int]]] = None, shots: Optional[int] = None) -> None:
         """
-        Prepares `Experiment` objects and appends them to `self.experiments`.
+        Prepares a single `Experiment` object and appends it to `self.experiments`.
 
         Args:
             combinations (Optional[Dict[int, List[int]]]):
@@ -157,9 +160,12 @@ class RandomSamples:
             for circuit_id in range(number_of_circuits):
                 combinations[circuit_id] = all_noise_models_ids
 
+        if shots is None:
+            shots = self.default_shots
+
         # If `combinations == {}`, that means there are no circuits and noise models (both) defined
         if combinations != {}:
-            self.experiments.append(Experiment(combinations))
+            self.experiments.append(Experiment(combinations, shots))
 
     @timer_dec("Total execution time = ")
     def run(self, exp_ids: Optional[List[int]] = None) -> None:
@@ -179,8 +185,11 @@ class RandomSamples:
         # Iterating over the experiments
         for exp_id in exp_ids:
 
+            # Just setting a pointer for convenience
+            exp = self.experiments[exp_id]
+
             # Creating a unique data folder for the experiment
-            exp_dir_path = f"{PATH_TO_DATA}{timestamp(datetime.now())}__exp_{exp_id}__shots_{SHOTS}/"
+            exp_dir_path = f"{PATH_TO_DATA}{timestamp(datetime.now())}__exp_{exp_id}__shots_{exp.shots}/"
             os.mkdir(exp_dir_path)
             print()
             print(f"Runs experiment {exp_id} and saves data to '{exp_dir_path}':")
@@ -193,7 +202,7 @@ class RandomSamples:
             self.generate_noise_models_metadata(exp_id, noise_models_metadata_dir_path)
 
             # For each experiment, iterating over its combinations of circuits with noise models
-            for circuit_id, noise_models_ids in self.experiments[exp_id].combinations.items():
+            for circuit_id, noise_models_ids in exp.combinations.items():
 
                 print()
                 print(f"    Circuit {circuit_id}:")
@@ -211,7 +220,7 @@ class RandomSamples:
 
                 # Generating a data file for each noise model
                 for noise_model_id in noise_models_ids:
-                    self.generate_single_data_file(circuit_id, noise_model_id, circuit_dir_path)
+                    self.generate_single_data_file(circuit_id, exp.shots, noise_model_id, circuit_dir_path)
 
     @timer_dec("    Metadata processing time = ")
     def generate_noise_models_metadata(self, exp_id: int, dir_path: str) -> None:
@@ -286,6 +295,7 @@ class RandomSamples:
     def generate_single_data_file(
         self,
         circuit_id: int,
+        shots: int,
         noise_model_id: int,
         dir_path: str
     ) -> None:
@@ -295,6 +305,7 @@ class RandomSamples:
 
         Args:
             circuit_id (int): ID number of the circuit to simulate.
+            shots (int): number of shots to run the combnination of a circuit and a noise model.
             noise_model_id (int): ID number of the noise model to simulate the circuit with.
             dir_path (str): a path to the directory to save the simulation results in.
         """
@@ -308,7 +319,7 @@ class RandomSamples:
         print()
         print(f"        Simulating circuit {circuit_id} with noise model {noise_model_id}.")
 
-        job = BACKEND.run(qc, shots=SHOTS, noise_model=noise_model)
+        job = BACKEND.run(qc, shots=shots, noise_model=noise_model)
         counts = job.result().get_counts()
 
         # The percentage of non-zero samples out of the 2^num_qubits possible samples
@@ -319,7 +330,7 @@ class RandomSamples:
         print(f"        Saving data to {file_name}.")
 
         # Transforming counts into a probability distribution
-        p_dist = RandomSamples.counts_to_p_dist(counts, SHOTS, num_qubits)
+        p_dist = RandomSamples.counts_to_p_dist(counts, shots, num_qubits)
 
         # Saving the results into a JSON file
         with open(f"{dir_path}{file_name}", 'w') as file_to_write:

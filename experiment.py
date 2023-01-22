@@ -1,27 +1,29 @@
 """
 Experiment object class.
 """
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 class Experiment:
     """
     A data structure for experiments to be run by the `RandomSamples` class.
     """
 
-    def __init__(self, combinations: Dict[int, List[int]]) -> None:
+    def __init__(self, combinations: Dict[int, List[int]], shots: int) -> None:
         """
         Args:
             combinations (Dict[int, List[int]]): a dictionary with circuit IDs as keys and
             lists of noise models' IDs as values for each circuit ID.
+            shots (int): number of shots to run each combnination of a circuit and a noise model.
         """
 
         self.combinations = combinations
+        self.shots = shots
 
         # Storing unique noise models' IDS into the set `self.noise_models`
         self.document_noise_models()
     
     def __repr__(self) -> str:
-        return f"Experiment({self.combinations})"
+        return f"Experiment(combinations={self.combinations}, shots={self.shots})"
 
     def document_noise_models(self) -> None:
         """

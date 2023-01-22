@@ -30,7 +30,12 @@ if __name__ == "__main__":
     samples_generator = RandomSamples(
         circuits=circuits,
         noise_models=noise_models,
+        default_shots=50000
     )
+
+    # Adding experiments
+    samples_generator.build_exp(shots=100000)
+    samples_generator.build_exp(shots=500000)
 
     # Displaying infrastructure and experiments details
     samples_generator.details()
