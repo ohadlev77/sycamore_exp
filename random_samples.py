@@ -9,6 +9,7 @@ from typing import List, Dict, Union, Optional
 from hashlib import sha256
 import numpy as np
 
+from qiskit import QuantumCircuit
 from qiskit.result.counts import Counts
 from qiskit_aer.noise.noise_model import NoiseModel
 
@@ -25,23 +26,33 @@ class RandomSamples:
 
     def __init__(
         self,
-        circuits: Optional[List[Dict[str, int]]] = None,
+        circuits: Optional[Union[List[Dict[str, int]], List[str]]] = None,
+        qasm_circuits_dir: Optional[str] = None,
         noise_models: Optional[List[NoiseModel]] = None,
         default_shots: Optional[int] = 20000
     ) -> None:
         """
         Args:
-            circuits (Optional[List[Dict[str, int]]): a list of circuits to simulate,
-            while every element of the list is a dictionary of the following format:
-            `{'num_qubits': (int), 'depth': (int)}`.
-            noise_models (Optional[List[NoiseModel]]): a list of `NoiseModel` objects.
+            circuits (Optional[Union[List[Dict[str, int]], List[str]]] = None]):
+                - If (List[Dict[str, int]]): every element of the list is a dictionary that defines
+                 properties of a random circuit to be generated, a dict of the following format:
+                `{'num_qubits': (int), 'depth': (int)}`.
+                - If (List[str]]): a list of paths to every QASM file of circuits to simulate (even 1).
+            qasm_circuits_dir (Optional[str] = None): a path to a directory with all QASM files
+            of the circuits simulate in it.
+            noise_models (Optional[List[NoiseModel]] = None): a list of `NoiseModel` objects.
+            default_shots (Optional[int] = 20000)
         """
 
         if circuits is None:
-            self.circuits = []
-        else:
-            self.circuits = circuits
-            self.build_circuits()
+            circuits = []
+
+        if qasm_circuits_dir is not None:
+            qasm_files = sorted(os.listdir(qasm_circuits_dir))
+            circuits += [f"{qasm_circuits_dir}/{f}" for f in qasm_files]
+        
+        self.circuits = circuits
+        self.build_circuits()
 
         if noise_models is None:
             self.noise_models = []
@@ -97,7 +108,6 @@ class RandomSamples:
             in the `__init__` docstrings.
         """
         
-        # Appending circuit definitions
         self.circuits += circuits
 
         # Build `QuantumCircuit` objects
@@ -131,12 +141,34 @@ class RandomSamples:
 
         for circuit_id in circuit_ids:
             if 'circuit_object' not in self.circuits[circuit_id]:
-                self.circuits[circuit_id]['circuit_object'] = random_circuit_modified(
-                    num_qubits=self.circuits[circuit_id]['num_qubits'],
-                    depth=self.circuits[circuit_id]['depth'],
-                    max_operands=MAX_OPERANDS,
-                    measure=True
-                )
+
+                # The case of a self-generated random circuit
+                if isinstance(self.circuits[circuit_id], dict):
+                    self.circuits[circuit_id]['circuit_object'] = random_circuit_modified(
+                        num_qubits=self.circuits[circuit_id]['num_qubits'],
+                        depth=self.circuits[circuit_id]['depth'],
+                        max_operands=MAX_OPERANDS,
+                        measure=True
+                    )
+
+                # The case of loading a circuit from a qasm file
+                elif isinstance(self.circuits[circuit_id], str):
+
+                    qc_obj = QuantumCircuit.from_qasm_file(self.circuits[circuit_id])
+                    qc_obj.measure_all()
+
+                    self.circuits[circuit_id] = {
+                        'num_qubits': qc_obj.num_qubits,
+                        'depth': qc_obj.depth(),
+                        'circuit_object': qc_obj
+                    }
+
+                else:
+                    raise SyntaxError(
+                        "A circuit must be defined by a dictionary or alternatively" \
+                        "can be loaded from a QASM file."
+                    )
+
 
     def build_exp(self, combinations: Optional[Dict[int, List[int]]] = None, shots: Optional[int] = None) -> None:
         """
@@ -278,7 +310,7 @@ class RandomSamples:
             qasm_file.write(qc_qasm)
 
         # Saving the circuit diagram
-        qc.draw(output="mpl", filename=f"{dir_path}circuit_{circuit_id}_diagram.png", fold=-1)
+        qc.draw(output="mpl", filename=f"{dir_path}circuit_{circuit_id}_diagram.pdf", fold=-1)
 
         # Collecting properties and saving them to a JSON file
         circuit_data = {

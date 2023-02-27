@@ -11,7 +11,7 @@ BACKEND = AerSimulator()
 MAX_OPERANDS = 2
 
 # A path to the directory that experiments data is saved into (From the main directory of the package)
-PATH_TO_DATA = "data/"
+PATH_TO_DATA = "src/data/"
 
 # Number of digits to keep after the decimal point for each computed probability
 DATA_PRECISION = 10
