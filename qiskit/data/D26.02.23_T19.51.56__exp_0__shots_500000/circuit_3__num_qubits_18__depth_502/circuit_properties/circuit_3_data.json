@@ -1,0 +1,19 @@
+{
+    "circuit_id": 3,
+    "num_qubits": 18,
+    "depth": 502,
+    "gates_count": {
+        "u3": 1128,
+        "cx": 846,
+        "rz": 758,
+        "ry": 742,
+        "sx": 565,
+        "sxdg": 470,
+        "rx": 282,
+        "s": 276,
+        "u2": 91,
+        "measure": 18,
+        "barrier": 1
+    },
+    "qasm_hash_sha256hex": "1cd2e15c3a8899d1ce851458473da80d64466551532f9c450fa20d9c824c569b"
+}
