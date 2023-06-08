@@ -1,0 +1,10 @@
+{
+    "num_bits": 12,
+    "num_cycles": 14,
+    "hilbert_dim": 4096,
+    "p1_error": 0.0016,
+    "p2_error": null,
+    "readout_error": 0.038,
+    "f_xeb(ideal, noisy)": 0.36681164448308845,
+    "F_77": null
+}

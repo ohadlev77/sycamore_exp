@@ -6,6 +6,7 @@ Functions for mining data according to Google's 2019 quantum supremacy Sycamore 
 from typing import List, Optional, Iterable, Any, Dict
 from collections import Counter
 
+import numpy as np
 import pandas as pd
 import cirq
 import qsimcirq
@@ -25,6 +26,7 @@ def mine_data(
     noisy_circuit_objs: Dict[str, cirq.Circuit], # TODO not cirq.Circuit?
     backend: qsimcirq.QSimSimulator, # TODO another type?
     shots: Optional[int] = 500_000,
+    meas_error: Optional[float] = None
 ):
     """
     TODO VERIFY.
@@ -58,18 +60,29 @@ def mine_data(
     )
 
     if not circuit_obj.has_measurements():
-        circuit_obj.append(cirq.measure(qubit_order))
+
+        cmap = None
+        
+        # Setting readout error for all qubits - `meas_error` chance for bit-flip upon measurement
+        if meas_error is not None:
+            single_qubit_cmap = [
+                [1 - meas_error, meas_error],
+                [meas_error, 1 - meas_error]
+            ]
+            cmap = {(i, ): single_qubit_cmap for i in range(num_bits)}
+
+        circuit_obj.append(cirq.measure(qubit_order, confusion_map=cmap))
 
     noise_models_probs = {}
-    for noise_model_name, noisy_circuit_obj in noisy_circuit_objs.items():
+    for _, noisy_circuit_obj in noisy_circuit_objs.items(): # TODO CONSIDER HOW TO STRUCTURE NOISE MODELS AND EXPS
 
         if not noisy_circuit_obj.has_measurements():
             noisy_circuit_obj.append(cirq.measure(qubit_order))
 
-        noisy_sim_res = backend.run(noisy_circuit_obj, repetitions=500_000)
+        noisy_sim_res = backend.run(noisy_circuit_obj, repetitions=shots)
         noisy_sim_counter = noisy_sim_res.histogram(key=qubit_order, fold_func=_gen_bitstring)
 
-        noise_models_probs[f"{noise_model_name}_prob"] = [
+        noise_models_probs[f"noisy_prob"] = [
             noisy_sim_counter[bitstring] / shots for bitstring in bitstrings
         ]
 

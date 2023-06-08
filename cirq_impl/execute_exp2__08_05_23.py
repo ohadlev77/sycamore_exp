@@ -49,7 +49,6 @@ def dir_to_exp_config(dir_path: str, num_bits: int, num_cycles: int, p_error: fl
 
 if __name__ == "__main__":
 
-    # dir_path_n12_m14_e0 = f"{GOOGLE_DATA_PATH}n12_m14_e0/"
     dir_path_n14_m14_e0 = f"{GOOGLE_DATA_PATH}n14_m14_e0/"
     num_bits = 14
     num_cycles = 14
