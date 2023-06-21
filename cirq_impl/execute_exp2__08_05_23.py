@@ -10,8 +10,8 @@ import qsimcirq
 from execute import execute_exp
 
 
-GOOGLE_DATA_PATH = "cirq_impl/google_chosen_data/"
-GENERATED_DATA_PATH = "cirq_impl/generated_data/"
+GOOGLE_DATA_PATH = "src/cirq_impl/google_chosen_data/"
+GENERATED_DATA_PATH = "src/cirq_impl/generated_data/"
 BACKEND = qsimcirq.QSimSimulator()
 
 
@@ -55,5 +55,8 @@ if __name__ == "__main__":
     p_error = 0.0016
     exp_configs = dir_to_exp_config(dir_path_n14_m14_e0, num_bits, num_cycles, p_error)
 
-    # print("\n".join(sorted([exp_config["name"] for exp_config in exp_configs])))
-    execute_exp(exp_configs, GENERATED_DATA_PATH)
+    print("\n".join(sorted([exp_config["name"] for exp_config in exp_configs])))
+    print()
+
+    print(exp_configs)
+    # execute_exp(exp_configs, GENERATED_DATA_PATH)
