@@ -32,7 +32,8 @@ def execute_exp(exp_configs, target_data_path):
             noisy_circuit_objs=exp_config["noisy_circuit_objs"],
             backend=exp_config["backend"],
             shots=exp_config["shots"],
-            meas_error=exp_config["meas_error"]
+            meas_error=exp_config["meas_error"],
+            weber_nm=exp_config["weber_nm"]
         )
         df.to_csv(f"{target_data_path}{exp_config['name']}.csv")
 
@@ -43,11 +44,12 @@ def execute_exp(exp_configs, target_data_path):
             "num_bits": exp_config["num_bits"],
             "num_cycles": exp_config["num_cycles"],
             "hilbert_dim": hilbert_dim,
-            "p1_error": exp_config["p1_error"],
-            "p2_error": None, # TODO COMPLETE,
-            "readout_error": exp_config["meas_error"],
-            "f_xeb(ideal, noisy)": compute_f_xeb(df["ideal_prob"], df["noisy_prob"], hilbert_dim),
-            "F_77": None, # TODO COMPLETE
+            # TODO - CONSIDER TO REARRANGE NOISE MODELS INTERFACE AND EXPORT ITS METADATA
+            # "p1_error": exp_config["p1_error"],
+            # "p2_error": None, # TODO COMPLETE,
+            # "readout_error": exp_config["meas_error"],
+            # "f_xeb(ideal, noisy)": compute_f_xeb(df["ideal_prob"], df["noisy_prob"], hilbert_dim),
+            # "F_77": None, # TODO COMPLETE
         }
         with open(f"{target_data_path}{exp_config['name']}_metadata.json", "w") as metadata_file:
             json.dump(metadata, metadata_file, indent=4)
