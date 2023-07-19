@@ -9,6 +9,7 @@ from collections import Counter
 import numpy as np
 import pandas as pd
 import cirq
+import cirq_google
 import qsimcirq
 
 GOOGLE_DATA_PATH = "google_chosen_data/"
@@ -26,7 +27,8 @@ def mine_data(
     noisy_circuit_objs: Dict[str, cirq.Circuit], # TODO not cirq.Circuit?
     backend: qsimcirq.QSimSimulator, # TODO another type?
     shots: Optional[int] = 500_000,
-    meas_error: Optional[float] = None
+    meas_error: Optional[float] = None,
+    weber_nm: Optional[bool] = False
 ):
     """
     TODO VERIFY.
@@ -82,8 +84,26 @@ def mine_data(
         noisy_sim_res = backend.run(noisy_circuit_obj, repetitions=shots)
         noisy_sim_counter = noisy_sim_res.histogram(key=qubit_order, fold_func=_gen_bitstring)
 
-        noise_models_probs[f"noisy_prob"] = [
+        noise_models_probs[f"depolarize_single_0.0016_prob"] = [
             noisy_sim_counter[bitstring] / shots for bitstring in bitstrings
         ]
 
-    return pd.concat([df, pd.DataFrame(noise_models_probs)], axis=1)
+    df = pd.concat([df, pd.DataFrame(noise_models_probs)], axis=1)
+
+    if weber_nm:
+        cal = cirq_google.engine.load_median_device_calibration("weber")
+        noise_props = cirq_google.noise_properties_from_calibration(cal)
+        noise_model = cirq_google.NoiseModelFromGoogleNoiseProperties(noise_props)
+        weber_qvm_sim = qsimcirq.QSimSimulator(noise=noise_model)
+
+        weber_run_res = weber_qvm_sim.run(circuit_obj, repetitions=shots)
+        weber_run_hist = weber_run_res.histogram(key=qubit_order)
+
+        qvm_weber_prob = pd.Series(
+            [weber_run_hist[num] / shots for num in range(2**num_bits)],
+            name="qvm_weber_prob"
+        )
+        
+        df = pd.concat([df, qvm_weber_prob], axis=1)
+
+    return df
