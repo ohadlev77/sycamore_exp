@@ -1,5 +1,6 @@
-""" Mining data by random circuits sampling of 5 linearly-connected qubits,
+""" Mining data by random circuit sampling (RCS) of 5 linearly-connected qubits,
 using real IBM superconducting devices."""
+
 
 import json
 from typing import List, Tuple
@@ -11,8 +12,6 @@ from qiskit_aer import StatevectorSimulator
 
 from gen_haar_random_circuit import gen_haar_random_circuit
 
-DATA_PATH = "src/qiskit_rcs_v2/exp_data"
-
 
 def gen_circuits(
     num_circuits: int,
@@ -20,7 +19,15 @@ def gen_circuits(
     num_cycles: int,
     backend
 ) -> Tuple[List[QuantumCircuit], List[QuantumCircuit]]:
-    """TODO COMPLETE."""
+    """Generates `num_circuits` Haar-random quantum circuits, with `num_qubits` qubits and `num_cycles`
+    cycles in each circuit. A 'cycle' is a contraction of a layer with a column of single qubit
+    Haar-random unitary rotations, with a layer of CNOT gates between a selected subset of adjacent
+    qubits. The selected subset of adjacent qubits is alternating back and forth between cycles.
+    
+    Returns:
+        (Tuple[List[QuantumCircuit], List[QuantumCircuit]]): a list with the Haar-random circuits
+        generated without measurements at the end, and a list with the same circuits transpiled
+        with respect to `backend`, with measurements at the end."""
 
     circuits = []
     transpiled_circuits = []
@@ -50,6 +57,9 @@ def export_metadata(
     backend,
     job_id: str
 ) -> None:
+    """Exports `circuits` and `transpiled_circuits` into serialized QPY files,
+    and documents all other arguments into a metadata JSON file.
+    Saves all files into the `path` directory."""
 
     with open(f"{path}/circuits.qpy", "wb") as f:
         qpy.dump(circuits, f)
@@ -76,7 +86,11 @@ def execute(
     ideal_probs_filepath: str,
     backend
 ) -> str:
-    """TODO COMPLETE"""
+    """Executes `circuits` on the ideal, noiseless `StatevectorSimulator()`,
+    and executes `transpiled_circuits` on `backend`.
+    
+    Returns:
+        (str): the job ID of the execution job on the `backend`."""
 
     # Ideal statevector simulation of `circuits`
     print("Ideally simulating all circuits..")
@@ -94,7 +108,7 @@ def execute(
     return job_id
 
 def export_execution_res(job, filepath: str) -> None:
-    """TODO COMPLETE."""
+    """Exports the counts/probability distribution of `job` into a JSON file (`filepath`)."""
     
     with open(filepath, "w") as f:
         json.dump(job.result().get_counts(), f, indent=4)
