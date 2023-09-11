@@ -22,7 +22,12 @@ def execute_circuit(
     num_bits: int,
     hilbert_dim: int
 ) -> pd.DataFrame:
-    """TODO COMPLETE"""
+    """Executes `circuit` on the ideal, noiseless `StatevectorSimulator()`,
+    and executes `transpiled_circuit` on `backend` (should be a real backend or anoisy simulator).
+    
+    Returns:
+        (pd.DataFrame): a table with all `hilbert_dim` bitstrings, each bitstring associated with
+        its ideal probability to be sampled, and its noisy reconstructed probability."""
 
     df = pd.DataFrame(
         {
@@ -53,6 +58,7 @@ def execute_circuit(
     
     return df
 
+
 def run(
     circuits: List[QuantumCircuit],
     transpiled_circuits: List[QuantumCircuit],
@@ -60,7 +66,12 @@ def run(
     backend,
     shots: int
 ) -> Dict[str, float]:
-    """TODO COMPLETE."""
+    """Executes `circuits` on ideal, noiseless simulator, and `transpiled_circuits` on `backend, using
+    the function `execute_circuit()`. Exports the results into CSV files in the `data_path` directory.
+    
+    Returns:
+        (Dict[str, float]): the cross entropy benchmarking fidelity (F_XEB) for each circuit,
+        calculated using the `compute_f_xeb()` function."""
 
     f_xeb_data = {}
 
@@ -81,10 +92,13 @@ def run(
 
     return f_xeb_data
 
+
 def compute_f_xeb(p_1, p_2, hilbert_dim) -> float:
-    """TODO COMPLETE."""
+    """Returns the cross entropy benchmarking fidelity (F_XEB) for `p_1` and `p_2` - which should be
+    probability distibutions over the same sample space, of dimension `hilbert_dim`."""
 
     return (hilbert_dim * (p_1 @ p_2)) - 1
+
 
 if __name__ == "__main__":
 
