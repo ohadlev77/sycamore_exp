@@ -1,12 +1,15 @@
-""" `gen_haar_random_circuit function`. """
+""" `gen_haar_random_circuit` function. """
+
 
 from qiskit import QuantumCircuit
 from qiskit.quantum_info import random_unitary
 
+
 def gen_haar_random_circuit(num_qubits: int, num_layers: int) -> QuantumCircuit:
-    """Generates a random quantum circuit with `num_qubits` qubits and `num_layers` layers.
-    Each layer consists of a single-qubit gates ("local") sublayer followed by an entangling ("nonlocal") sublayer.
-    The local layer is a column of Haar random unitaries.
+    """Returns a Haar-random quantum circuit with `num_qubits` qubits and `num_layers` layers.
+    Each layer consists of a single-qubit gates ("local") sublayer,
+    followed by an entangling ("nonlocal") sublayer.
+    The local layer is a column of Haar-random unitaries.
     The entangling layer is a column of alternating CNOT gates."""
     
     qc = QuantumCircuit(num_qubits)
