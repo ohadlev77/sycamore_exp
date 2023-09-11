@@ -3,82 +3,14 @@ using real IBM superconducting devices."""
 
 
 import json
-from typing import List, Tuple
-from copy import deepcopy
+from typing import List
 
-from qiskit import transpile, qpy, QuantumCircuit
+from qiskit import QuantumCircuit
 from qiskit_ibm_provider import IBMProvider, least_busy
 from qiskit_aer import StatevectorSimulator
 
-from gen_haar_random_circuit import gen_haar_random_circuit
+from mine_data_core_funs import gen_circuits, export_metadata
 
-
-def gen_circuits(
-    num_circuits: int,
-    num_qubits: int,
-    num_cycles: int,
-    backend
-) -> Tuple[List[QuantumCircuit], List[QuantumCircuit]]:
-    """Generates `num_circuits` Haar-random quantum circuits, with `num_qubits` qubits and `num_cycles`
-    cycles in each circuit. A 'cycle' is a contraction of a layer with a column of single qubit
-    Haar-random unitary rotations, with a layer of CNOT gates between a selected subset of adjacent
-    qubits. The selected subset of adjacent qubits is alternating back and forth between cycles.
-    
-    Returns:
-        (Tuple[List[QuantumCircuit], List[QuantumCircuit]]): a list with the Haar-random circuits
-        generated without measurements at the end, and a list with the same circuits transpiled
-        with respect to `backend`, with measurements at the end."""
-
-    circuits = []
-    transpiled_circuits = []
-
-    for _ in range(num_circuits):
-
-        qc_no_meas = gen_haar_random_circuit(num_qubits, num_cycles)
-        circuits.append(qc_no_meas)
-
-        qc = deepcopy(qc_no_meas)
-        qc.measure_all()
-        tpqc = transpile(
-            qc,
-            backend=backend,
-            optimization_level=3
-        )
-        transpiled_circuits.append(tpqc)
-
-    return circuits, transpiled_circuits
-
-def export_metadata(
-    circuits: List[QuantumCircuit],
-    transpiled_circuits: List[QuantumCircuit],
-    path: str,
-    num_qubits: int,
-    num_cycles: int,
-    backend,
-    job_id: str
-) -> None:
-    """Exports `circuits` and `transpiled_circuits` into serialized QPY files,
-    and documents all other arguments into a metadata JSON file.
-    Saves all files into the `path` directory."""
-
-    with open(f"{path}/circuits.qpy", "wb") as f:
-        qpy.dump(circuits, f)
-
-    with open(f"{path}/transpiled_circuits.qpy", "wb") as f:
-        qpy.dump(transpiled_circuits, f)
-
-    with open(f"{path}/metadata.json", "w") as f:
-        circuits_metadata = {
-            "num_circuits": len(circuits),
-            "num_qubits": num_qubits,
-            "num_cycles": num_cycles,
-            "circuit_depth": circuits[0].depth(),
-            "transpiled_circuit_depth": transpiled_circuits[0].depth(),
-            "backend": backend.name,
-            "job_id": job_id
-        }
-
-        json.dump(circuits_metadata, f, indent=4)
 
 def execute(
     circuits: List[QuantumCircuit],
@@ -106,6 +38,7 @@ def execute(
     print(f"Job ID = {job_id}")
 
     return job_id
+
 
 def export_execution_res(job, filepath: str) -> None:
     """Exports the counts/probability distribution of `job` into a JSON file (`filepath`)."""
