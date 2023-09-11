@@ -1,4 +1,5 @@
-"""TODO COMPLETE."""
+"""Retrieving jobs from the cloud and exporting the data."""
+
 
 from qiskit_ibm_provider import IBMProvider
 
