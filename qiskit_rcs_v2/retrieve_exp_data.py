@@ -2,7 +2,7 @@
 
 from qiskit_ibm_provider import IBMProvider
 
-from mine_5q_rcs_data import export_execution_res
+from src.qiskit_rcs_v2.mine_v1_5q_rcs_data import export_execution_res
 
 
 if __name__ == "__main__":
