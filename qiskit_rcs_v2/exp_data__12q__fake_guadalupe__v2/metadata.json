@@ -6,16 +6,56 @@
     "transpiled_circuit_depth": 55,
     "backend": "fake_guadalupe",
     "f_xeb_data": {
-        "circuit_0": 0.9599138045889082,
-        "circuit_1": 1.7009370550451264,
-        "circuit_2": 0.8937513258110372,
-        "circuit_3": 1.9454853306402464,
-        "circuit_4": 1.4663353884824142,
-        "circuit_5": 1.3306586445661708,
-        "circuit_6": 1.304995807520514,
-        "circuit_7": 1.2206844813236017,
-        "circuit_8": 0.8707536806784106,
-        "circuit_9": 1.7207406440744588
+        "circuit_0": {
+            "F_XEB(ideal, guadalupe)": 0.9599138045889082,
+            "F_XEB(ideal, depolarizing)": 1.1792504513679662,
+            "F_XEB(ideal, depolarizing_and_readout)": 0.8891716178776459
+        },
+        "circuit_1": {
+            "F_XEB(ideal, guadalupe)": 1.7009370550451264,
+            "F_XEB(ideal, depolarizing)": 2.2382585756768707,
+            "F_XEB(ideal, depolarizing_and_readout)": 1.677975197329931
+        },
+        "circuit_2": {
+            "F_XEB(ideal, guadalupe)": 0.8937513258110372,
+            "F_XEB(ideal, depolarizing)": 1.1859681063453662,
+            "F_XEB(ideal, depolarizing_and_readout)": 0.8734822417859354
+        },
+        "circuit_3": {
+            "F_XEB(ideal, guadalupe)": 1.9454853306402464,
+            "F_XEB(ideal, depolarizing)": 2.4399675641538763,
+            "F_XEB(ideal, depolarizing_and_readout)": 1.8345514968859118
+        },
+        "circuit_4": {
+            "F_XEB(ideal, guadalupe)": 1.4663353884824142,
+            "F_XEB(ideal, depolarizing)": 2.062815697591734,
+            "F_XEB(ideal, depolarizing_and_readout)": 1.537567320461648
+        },
+        "circuit_5": {
+            "F_XEB(ideal, guadalupe)": 1.3306586445661708,
+            "F_XEB(ideal, depolarizing)": 1.709129479650521,
+            "F_XEB(ideal, depolarizing_and_readout)": 1.252203862261556
+        },
+        "circuit_6": {
+            "F_XEB(ideal, guadalupe)": 1.304995807520514,
+            "F_XEB(ideal, depolarizing)": 1.6945157240973359,
+            "F_XEB(ideal, depolarizing_and_readout)": 1.234812747791998
+        },
+        "circuit_7": {
+            "F_XEB(ideal, guadalupe)": 1.2206844813236017,
+            "F_XEB(ideal, depolarizing)": 1.5504940896513149,
+            "F_XEB(ideal, depolarizing_and_readout)": 1.150855265250923
+        },
+        "circuit_8": {
+            "F_XEB(ideal, guadalupe)": 0.8707536806784106,
+            "F_XEB(ideal, depolarizing)": 1.163809728204579,
+            "F_XEB(ideal, depolarizing_and_readout)": 0.8544765114116848
+        },
+        "circuit_9": {
+            "F_XEB(ideal, guadalupe)": 1.7207406440744588,
+            "F_XEB(ideal, depolarizing)": 2.2433138803706756,
+            "F_XEB(ideal, depolarizing_and_readout)": 1.6778372413301073
+        }
     },
     "expected_circuit_fidelities": {
         "circuit_0": {
