@@ -6,5 +6,47 @@
     "transpiled_circuit_depth": 55,
     "backend": "ibm_nairobi",
     "job_id": "cir5ratlipn2bcc1evpg",
-    "shots": 100000
+    "shots": 100000,
+    "expected_circuit_fidelities": {
+        "circuit_0": {
+            "expected_fidelity_before_readout": 0.8186650075908423,
+            "expected_fidelity": 0.7185757530730791
+        },
+        "circuit_1": {
+            "expected_fidelity_before_readout": 0.8186650075908423,
+            "expected_fidelity": 0.7185757530730791
+        },
+        "circuit_2": {
+            "expected_fidelity_before_readout": 0.8186650075908423,
+            "expected_fidelity": 0.7185757530730791
+        },
+        "circuit_3": {
+            "expected_fidelity_before_readout": 0.8186650075908423,
+            "expected_fidelity": 0.7185757530730791
+        },
+        "circuit_4": {
+            "expected_fidelity_before_readout": 0.8186650075908423,
+            "expected_fidelity": 0.7185757530730791
+        },
+        "circuit_5": {
+            "expected_fidelity_before_readout": 0.8186650075908423,
+            "expected_fidelity": 0.7185757530730791
+        },
+        "circuit_6": {
+            "expected_fidelity_before_readout": 0.8186650075908423,
+            "expected_fidelity": 0.7185757530730791
+        },
+        "circuit_7": {
+            "expected_fidelity_before_readout": 0.8186650075908423,
+            "expected_fidelity": 0.7185757530730791
+        },
+        "circuit_8": {
+            "expected_fidelity_before_readout": 0.8186650075908423,
+            "expected_fidelity": 0.7185757530730791
+        },
+        "circuit_9": {
+            "expected_fidelity_before_readout": 0.8186650075908423,
+            "expected_fidelity": 0.7185757530730791
+        }
+    }
 }

@@ -6,5 +6,47 @@
     "transpiled_circuit_depth": 55,
     "backend": "ibmq_jakarta",
     "job_id": "cir4c0tlipn2bcc0ce90",
-    "shots": 100000
+    "shots": 100000,
+    "expected_circuit_fidelities": {
+        "circuit_0": {
+            "expected_fidelity_before_readout": 0.8339556360316767,
+            "expected_fidelity": 0.7355884883531485
+        },
+        "circuit_1": {
+            "expected_fidelity_before_readout": 0.8339556360316767,
+            "expected_fidelity": 0.7355884883531485
+        },
+        "circuit_2": {
+            "expected_fidelity_before_readout": 0.8339556360316767,
+            "expected_fidelity": 0.7355884883531485
+        },
+        "circuit_3": {
+            "expected_fidelity_before_readout": 0.8339556360316767,
+            "expected_fidelity": 0.7355884883531485
+        },
+        "circuit_4": {
+            "expected_fidelity_before_readout": 0.8339556360316767,
+            "expected_fidelity": 0.7355884883531485
+        },
+        "circuit_5": {
+            "expected_fidelity_before_readout": 0.8339556360316767,
+            "expected_fidelity": 0.7355884883531485
+        },
+        "circuit_6": {
+            "expected_fidelity_before_readout": 0.8339556360316767,
+            "expected_fidelity": 0.7355884883531485
+        },
+        "circuit_7": {
+            "expected_fidelity_before_readout": 0.8339556360316767,
+            "expected_fidelity": 0.7355884883531485
+        },
+        "circuit_8": {
+            "expected_fidelity_before_readout": 0.8339556360316767,
+            "expected_fidelity": 0.7355884883531485
+        },
+        "circuit_9": {
+            "expected_fidelity_before_readout": 0.8339556360316767,
+            "expected_fidelity": 0.7355884883531485
+        }
+    }
 }

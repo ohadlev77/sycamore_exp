@@ -1,0 +1,42 @@
+"""Updating metadata in `ibm_nairobi` and `ibmq_jakarta` data with expected circuit fidelities."""
+
+
+import json
+
+from qiskit import qpy
+
+from compute_expected_circuit_fidelity import compute_expected_fidelity_from_csv
+
+
+if __name__ == "__main__":
+
+    data_paths = [
+        "src/qiskit_rcs_v2/exp_data__5q__ibm_nairobi__v1",
+        "src/qiskit_rcs_v2/exp_data__5q__ibmq_jakarta__v1"
+    ]
+    calib_csv_file_names = [
+        "ibm_nairobi_calibrations_2023-07-23T10_28_09Z.csv",
+        "ibmq_jakarta_calibrations_2023-07-23T09_18_50Z.csv"
+    ]
+
+    for data_path, calib_csv_file_name in zip(data_paths, calib_csv_file_names):
+
+        with open(f"{data_path}/transpiled_circuits.qpy", "rb") as f:
+            transpiled_circuits = qpy.load(f)
+
+        expected_fidelities = {}
+        for index, circuit in enumerate(transpiled_circuits):
+            expected_fidelities[f"circuit_{index}"] = compute_expected_fidelity_from_csv(
+                circuit,
+                f"{data_path}/{calib_csv_file_name}"
+            )
+
+        with open(f"{data_path}/metadata.json", "r") as f:
+            metadata = json.load(f)
+
+        metadata["expected_circuit_fidelities"] = expected_fidelities
+
+        with open(f"{data_path}/metadata.json", "w") as f:
+            json.dump(metadata, f, indent=4)
+
+    print("DONE.")
